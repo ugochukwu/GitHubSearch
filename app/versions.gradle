@@ -1,18 +1,31 @@
 ext {
     versions = [
-        support_lib      : "27.1.1",
-        retrofit         : "2.4.0",
-        rxjava           : "2.1.13",
-        design           : "27.1.1",
-        constraint_layout: "1.1.0"
+        supportLib      : "27.1.1",
+        retrofit        : "2.4.0",
+        rxjava          : "2.1.13",
+        design          : "27.1.1",
+        constraintLayout: "1.1.0",
+        daggerVersion   : "2.15",
+        okhttp          : "3.10.0",
+        rxAndroid       : "2.0.2"
     ]
     libs = [
-        support_annotations    : "com.android.support:support-annotations:${versions.support_lib}",
-        support_appcompat_v7   : "com.android.support:appcompat-v7:${versions.support_lib}",
+        support_annotations    : "com.android.support:support-annotations:${versions.supportLib}",
+        support_appcompat_v7   : "com.android.support:appcompat-v7:${versions.supportLib}",
         retrofit               : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
         retrofit_rxjava_adapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+        retrofit_gson_adapter  : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
         rxjava                 : "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
         design                 : "com.android.support:design:${versions.design}",
-        constraint_layout      : "com.android.support.constraint:constraint-layout:${versions.constraint_layout}"
+        constraint_layout      : "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+        dagger                 : [
+            core             : "com.google.dagger:dagger:${versions.daggerVersion}",
+            compiler         : "com.google.dagger:dagger-compiler:${versions.daggerVersion}",
+            android_processor: "com.google.dagger:dagger-android-processor:${versions.daggerVersion}",
+            android_support  : "com.google.dagger:dagger-android-support:${versions.daggerVersion}"
+        ],
+        okhttp                 : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+        okhttp_logging         : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
+        rxandroid              : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}"
     ]
 }

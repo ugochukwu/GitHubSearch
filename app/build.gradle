@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 apply from: 'versions.gradle'
 
 android {
@@ -30,10 +32,24 @@ dependencies {
     implementation libs.support_annotations
     implementation libs.design
     implementation libs.support_appcompat_v7
-
     implementation libs.constraint_layout
-    implementation libs.retrofit
+
+
+    implementation(libs.retrofit) {
+        exclude module: 'okhttp'
+    }
     implementation libs.retrofit_rxjava_adapter
+    implementation libs.retrofit_gson_adapter
+    implementation libs.okhttp
+    implementation libs.okhttp_logging
+
+    implementation libs.rxjava
+    implementation libs.rxandroid
+
+    implementation libs.dagger.core
+    kapt libs.dagger.compiler
+    kapt libs.dagger.android_processor
+    implementation libs.dagger.android_support
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
