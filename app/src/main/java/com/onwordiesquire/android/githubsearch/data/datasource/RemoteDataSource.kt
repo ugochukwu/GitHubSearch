@@ -11,15 +11,15 @@ interface GithubApi {
 
     @GET("search/repositories")
     fun searchForRespositories(@Query("q") searchTerm: String,
-                               @Query("per_page") pageSize: Int,
-                               @Query("page") page: Int)
+                               @Query("page") page: Int,
+                               @Query("per_page") pageSize: Int)
             : Single<Response<SearchResponseDto>>
 }
 
 class RemoteDataSource @Inject constructor(private val githubApi: GithubApi) {
 
-    fun searchForRepositories(searchTerm: String, pageNo: Int = 0, pageSize: Int = PAGE_SIZE)
-            : Single<Response<SearchResponseDto>> = githubApi.searchForRespositories(searchTerm, pageSize, pageNo)
+    fun searchForRepositories(searchTerm: String, pageNo: Int = 0, pageSize: Int)
+            : Single<Response<SearchResponseDto>> = githubApi.searchForRespositories(searchTerm, pageNo, pageSize)
 }
 
 const val BASE_URL = "https://api.github.com/"
