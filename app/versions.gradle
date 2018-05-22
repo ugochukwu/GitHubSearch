@@ -1,0 +1,18 @@
+ext {
+    versions = [
+        support_lib      : "27.1.1",
+        retrofit         : "2.4.0",
+        rxjava           : "2.1.13",
+        design           : "27.1.1",
+        constraint_layout: "1.1.0"
+    ]
+    libs = [
+        support_annotations    : "com.android.support:support-annotations:${versions.support_lib}",
+        support_appcompat_v7   : "com.android.support:appcompat-v7:${versions.support_lib}",
+        retrofit               : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+        retrofit_rxjava_adapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+        rxjava                 : "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
+        design                 : "com.android.support:design:${versions.design}",
+        constraint_layout      : "com.android.support.constraint:constraint-layout:${versions.constraint_layout}"
+    ]
+}
