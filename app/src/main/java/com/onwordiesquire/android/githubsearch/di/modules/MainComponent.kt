@@ -3,12 +3,13 @@ package com.onwordiesquire.android.githubsearch.di
 import com.onwordiesquire.android.githubsearch.GithubSearchApp
 import com.onwordiesquire.android.githubsearch.di.modules.GitHubApiModule
 import com.onwordiesquire.android.githubsearch.di.modules.NetworkModule
+import com.onwordiesquire.android.githubsearch.di.modules.ViewModelFactoryModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class, GitHubApiModule::class])
+@Component(modules = [NetworkModule::class, GitHubApiModule::class, ViewModelFactoryModule::class])
 interface MainComponent {
     fun inject(githubSearchApp: GithubSearchApp)
 

@@ -34,7 +34,6 @@ dependencies {
     implementation libs.support_appcompat_v7
     implementation libs.constraint_layout
 
-
     implementation(libs.retrofit) {
         exclude module: 'okhttp'
     }
@@ -45,6 +44,8 @@ dependencies {
 
     implementation libs.rxjava
     implementation libs.rxandroid
+
+    implementation libs.architectureComponents
 
     implementation libs.dagger.core
     kapt libs.dagger.compiler

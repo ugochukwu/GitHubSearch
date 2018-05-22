@@ -14,7 +14,7 @@ class SearchForRepositoryUseCase @Inject constructor(private val dataRepository:
                 .flatMap { response ->
                     when {
                         response.isSuccessful -> mapDtoToUseCaseResponse(response.body())
-                        else -> UseCaseResponse(ResultState.Failure)
+                        else -> UseCaseResponse(ResultState.Failure())
                     }.run { Single.just(this) }
                 }
     }
@@ -28,11 +28,11 @@ class SearchForRepositoryUseCase @Inject constructor(private val dataRepository:
             }.run {
                 UseCaseResponse(result = determineResultState(this))
             }
-        } ?: UseCaseResponse(result = ResultState.Failure)
+        } ?: UseCaseResponse(result = ResultState.Failure())
     }
 
     private fun determineResultState(repoPage: RepoPage) =
-            if (repoPage.isDefault()) ResultState.Failure else ResultState.Success(repoPage)
+            if (repoPage.isDefault()) ResultState.Failure() else ResultState.Success(repoPage)
 
     private fun mapRepositoryList(items: List<ItemDto>?): RepositoryList {
         return items?.map { dto ->

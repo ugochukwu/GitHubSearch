@@ -1,13 +1,15 @@
 ext {
     versions = [
-        supportLib      : "27.1.1",
-        retrofit        : "2.4.0",
-        rxjava          : "2.1.13",
-        design          : "27.1.1",
-        constraintLayout: "1.1.0",
-        daggerVersion   : "2.15",
-        okhttp          : "3.10.0",
-        rxAndroid       : "2.0.2"
+        supportLib            : "27.1.1",
+        retrofit              : "2.4.0",
+        rxjava                : "2.1.13",
+        design                : "27.1.1",
+        constraintLayout      : "1.1.0",
+        daggerVersion         : "2.15",
+        okhttp                : "3.10.0",
+        rxAndroid             : "2.0.2",
+        architectureComponents: "1.1.0"
+
     ]
     libs = [
         support_annotations    : "com.android.support:support-annotations:${versions.supportLib}",
@@ -26,6 +28,7 @@ ext {
         ],
         okhttp                 : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
         okhttp_logging         : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
-        rxandroid              : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}"
+        rxandroid              : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}",
+        architectureComponents : "android.arch.lifecycle:extensions:${versions.architectureComponents}"
     ]
 }
