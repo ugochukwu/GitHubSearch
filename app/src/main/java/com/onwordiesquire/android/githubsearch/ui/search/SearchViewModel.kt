@@ -18,7 +18,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: SearchRepositoryUseCase)
     : ViewModel() {
 
-    private lateinit var internalState: InternalViewModelState
+    private var internalState: InternalViewModelState
     private val uiModelLiveData: MutableLiveData<UiModel> = MutableLiveData()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
         get() = if (field.isDisposed) CompositeDisposable() else field
@@ -69,5 +69,3 @@ class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: S
                                               val searchTerm: String = "",
                                               val cachedList: RepositoryList = emptyList())
 }
-
-data class ViewModelConfiguration(val pageNo: Int = 0)

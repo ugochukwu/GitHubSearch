@@ -1,12 +1,22 @@
 package com.onwordiesquire.android.githubsearch
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.onwordiesquire.android.githubsearch.ui.base.BaseActivity
+import com.onwordiesquire.android.githubsearch.ui.search.SearchFragment
+import com.onwordiesquire.android.githubsearch.utils.replaceFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        displaySearchFragment()
+    }
+
+    override fun getLayout(): Int = R.layout.activity_main
+
+    private fun displaySearchFragment() {
+        replaceFragment(SearchFragment.newInstance(), containerId = R.id.contentContainer)
+
     }
 }

@@ -12,7 +12,8 @@ ext {
         junit                 : "4.12",
         mockito               : "2.10.0",
         mockitoKotlin         : "1.5.0",
-        truth                 : "0.36"
+        truth                 : "0.36",
+        kotlin_reflect        : "1.2.41"
     ]
     libs = [
         support_annotations        : "com.android.support:support-annotations:${versions.supportLib}",
@@ -36,7 +37,7 @@ ext {
         junit                      : "junit:junit:${versions.junit}",
         mockito_core               : "org.mockito:mockito-core:${versions.mockito}",
         mockito_kotlin             : "com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
-        kotlin_reflect             : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin_version}",
+        kotlin_reflect             : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin_reflect}",
         architectureComponents_test: "android.arch.core:core-testing:${versions.architectureComponents}",
         truth                      : "com.google.truth:truth:${versions.truth}"
     ]

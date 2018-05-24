@@ -9,7 +9,7 @@ import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 @Singleton
-class ViewModelFactory @Inject constructor(private val creators: Map<Class<out ViewModel>, Provider<ViewModel>>)
+class ViewModelFactory @Inject constructor(private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>)
     : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -26,5 +26,6 @@ class ViewModelFactory @Inject constructor(private val creators: Map<Class<out V
 }
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
+@Retention(AnnotationRetention.RUNTIME)
 @MapKey
 internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
