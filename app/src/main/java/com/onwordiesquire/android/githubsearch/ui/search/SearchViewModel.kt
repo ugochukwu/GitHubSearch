@@ -35,7 +35,7 @@ class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: S
         compositeDisposable.add(searchRepositoryUseCase.fetchResults(searchTerm, internalState.pageNo)
                 .toFlowable()
                 .map({ mapResultToUiState(it) })
-                .onErrorReturnItem(UiModel(state = ModelState.Error()))
+                .onErrorReturnItem(UiModel(state = ModelState.Error(ERROR_MSG)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .startWith(UiModel(state = ModelState.Loading()))
@@ -59,8 +59,8 @@ class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: S
             when (result) {
                 is ResultState.Success<*> -> UiModel(state = ModelState.Success(result.payload as RepoPage))
                         .also { internalState = internalState.copy(cachedList = result.payload.repositoryList) }
-                is ResultState.Failure -> UiModel(state = ModelState.Error())
-                is ResultState.Empty -> UiModel(state = ModelState.Empty())
+                is ResultState.Failure -> UiModel(state = ModelState.Error(ERROR_MSG))
+                is ResultState.Empty -> UiModel(state = ModelState.Empty(EMPTY_MSG))
             }
         }
     }
@@ -69,3 +69,6 @@ class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: S
                                               val searchTerm: String = "",
                                               val cachedList: RepositoryList = emptyList())
 }
+
+const val ERROR_MSG = "Sorry something went wrong, please try again"
+const val EMPTY_MSG = "Sorry we couldn't find anything"

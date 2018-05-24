@@ -10,6 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -33,6 +34,8 @@ class NetworkModule {
                 if (BuildConfig.DEBUG) {
                     addInterceptor(httpLoggingInterceptor)
                 }
+                connectTimeout(TIMEOUT_DURATION, TimeUnit.SECONDS)
+                readTimeout(TIMEOUT_DURATION, TimeUnit.SECONDS)
                 build()
             }
 
@@ -53,3 +56,5 @@ class NetworkModule {
     fun provideGson(): Gson = Gson()
 
 }
+
+const val TIMEOUT_DURATION = 60L

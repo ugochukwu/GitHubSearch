@@ -5,8 +5,8 @@ data class UiModel(val state: ModelState)
 sealed class ModelState {
     class Loading : ModelState()
     class Success<T>(val data: T) : ModelState()
-    class Empty : ModelState()
-    class Error : ModelState()
+    class Empty(val message: String) : ModelState()
+    class Error(val message: String) : ModelState()
     class PaginationSuccess : ModelState()
     class PaginationError : ModelState()
 }

@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.constraint.ConstraintSet
+import android.support.graphics.drawable.VectorDrawableCompat
 import android.support.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
@@ -45,8 +46,8 @@ class SearchFragment : BaseFragment() {
                     when (state) {
                         is ModelState.Loading -> renderLoadingState()
                         is ModelState.Success<*> -> TODO()
-                        is ModelState.Empty -> showEmptyState()
-                        is ModelState.Error -> TODO()
+                        is ModelState.Empty -> showFeedbackState(state.message, R.drawable.ic_empty_state)
+                        is ModelState.Error -> showFeedbackState(state.message, R.drawable.ic_error_state)
                         is ModelState.PaginationSuccess -> TODO()
                         is ModelState.PaginationError -> TODO()
                     }
@@ -55,13 +56,21 @@ class SearchFragment : BaseFragment() {
         })
     }
 
-    private fun showEmptyState() {
+    fun showFeedbackState(message: String, imgResId: Int) {
         val constraintSet = ConstraintSet()
         constraintSet.clone(searchViewConstraint)
         constraintSet.setVisibility(progressBar.id, View.GONE)
-        constraintSet.setVisibility(emptyStateGroup.id, View.VISIBLE)
+
+        imgFeedbackState.setImageDrawable(getFeedbackImage(imgResId))
+        feedbackMsgTxt.text = message
+        constraintSet.setVisibility(error_emptyState.id, View.VISIBLE)
+
         constraintSet.applyTo(searchViewConstraint)
         TransitionManager.beginDelayedTransition(searchViewConstraint)
+    }
+
+    private fun getFeedbackImage(resourceId: Int) = context?.let {
+        VectorDrawableCompat.create(it.resources, resourceId, it.theme)
     }
 
     override fun injectViewModel(): SearchViewModel = ViewModelProviders.of(this, viewModelFactoryProvider)

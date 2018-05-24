@@ -89,7 +89,7 @@
         app:layout_goneMarginTop="16dp"/>
 
     <ImageView
-        android:id="@+id/imgEmptyState"
+        android:id="@+id/imgFeedbackState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,21 +100,22 @@
         app:srcCompat="@drawable/ic_empty_state"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/feedbackMsgTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sorry we couldn't find anything"
+        android:layout_marginTop="4dp"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/imgEmptyState"
-        app:layout_constraintRight_toRightOf="@id/imgEmptyState"
-        app:layout_constraintTop_toBottomOf="@id/imgEmptyState"
+        app:layout_constraintLeft_toLeftOf="@id/imgFeedbackState"
+        app:layout_constraintRight_toRightOf="@id/imgFeedbackState"
+        app:layout_constraintTop_toBottomOf="@id/imgFeedbackState"
         app:layout_constraintVertical_bias="0.0"/>
 
     <android.support.constraint.Group
-        android:id="@+id/emptyStateGroup"
+        android:id="@+id/error_emptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="textView3,imgEmptyState"/>
+        app:constraint_referenced_ids="imgFeedbackState,feedbackMsgTxt"/>
 
 </android.support.constraint.ConstraintLayout>
