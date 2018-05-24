@@ -45,7 +45,7 @@ class SearchFragment : BaseFragment() {
                     when (state) {
                         is ModelState.Loading -> renderLoadingState()
                         is ModelState.Success<*> -> TODO()
-                        is ModelState.Empty -> TODO()
+                        is ModelState.Empty -> showEmptyState()
                         is ModelState.Error -> TODO()
                         is ModelState.PaginationSuccess -> TODO()
                         is ModelState.PaginationError -> TODO()
@@ -53,6 +53,15 @@ class SearchFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun showEmptyState() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(searchViewConstraint)
+        constraintSet.setVisibility(progressBar.id, View.GONE)
+        constraintSet.setVisibility(emptyStateGroup.id, View.VISIBLE)
+        constraintSet.applyTo(searchViewConstraint)
+        TransitionManager.beginDelayedTransition(searchViewConstraint)
     }
 
     override fun injectViewModel(): SearchViewModel = ViewModelProviders.of(this, viewModelFactoryProvider)
