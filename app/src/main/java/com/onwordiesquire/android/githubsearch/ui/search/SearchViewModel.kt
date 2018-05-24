@@ -25,7 +25,7 @@ class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: S
 
     fun subscribeToUiEvents(): LiveData<UiModel> = uiModelLiveData
 
-    fun init() {
+    init {
         internalState = InternalViewModelState()
     }
 

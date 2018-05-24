@@ -11,30 +11,33 @@ ext {
         architectureComponents: "1.1.0",
         junit                 : "4.12",
         mockito               : "2.10.0",
-        mockitoKotlin         : "1.5.0"
+        mockitoKotlin         : "1.5.0",
+        truth                 : "0.36"
     ]
     libs = [
-        support_annotations    : "com.android.support:support-annotations:${versions.supportLib}",
-        support_appcompat_v7   : "com.android.support:appcompat-v7:${versions.supportLib}",
-        retrofit               : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
-        retrofit_rxjava_adapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
-        retrofit_gson_adapter  : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
-        rxjava                 : "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
-        design                 : "com.android.support:design:${versions.design}",
-        constraint_layout      : "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
-        dagger                 : [
+        support_annotations        : "com.android.support:support-annotations:${versions.supportLib}",
+        support_appcompat_v7       : "com.android.support:appcompat-v7:${versions.supportLib}",
+        retrofit                   : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+        retrofit_rxjava_adapter    : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+        retrofit_gson_adapter      : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+        rxjava                     : "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
+        design                     : "com.android.support:design:${versions.design}",
+        constraint_layout          : "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
+        dagger                     : [
             core             : "com.google.dagger:dagger:${versions.daggerVersion}",
             compiler         : "com.google.dagger:dagger-compiler:${versions.daggerVersion}",
             android_processor: "com.google.dagger:dagger-android-processor:${versions.daggerVersion}",
             android_support  : "com.google.dagger:dagger-android-support:${versions.daggerVersion}"
         ],
-        okhttp                 : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
-        okhttp_logging         : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
-        rxandroid              : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}",
-        architectureComponents : "android.arch.lifecycle:extensions:${versions.architectureComponents}",
-        junit                  : "junit:junit:${versions.junit}",
-        mockito_core           : "org.mockito:mockito-core:${versions.mockito}",
-        mockito_kotlin         : "com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
-        kotlin_reflect         : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin_version}"
+        okhttp                     : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+        okhttp_logging             : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
+        rxandroid                  : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}",
+        architectureComponents     : "android.arch.lifecycle:extensions:${versions.architectureComponents}",
+        junit                      : "junit:junit:${versions.junit}",
+        mockito_core               : "org.mockito:mockito-core:${versions.mockito}",
+        mockito_kotlin             : "com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
+        kotlin_reflect             : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin_version}",
+        architectureComponents_test: "android.arch.core:core-testing:${versions.architectureComponents}",
+        truth                      : "com.google.truth:truth:${versions.truth}"
     ]
 }

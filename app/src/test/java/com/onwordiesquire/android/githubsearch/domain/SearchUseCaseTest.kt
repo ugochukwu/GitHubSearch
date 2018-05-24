@@ -1,5 +1,6 @@
 package com.onwordiesquire.android.githubsearch.domain
 
+import SearchTestDataFactory.Companion.provideSampleDataSourceResponse
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
@@ -13,10 +14,9 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.stubbing.OngoingStubbing
-import provideSampleResponse
 
 @RunWith(MockitoJUnitRunner::class)
-class SearchRepositoryUseCaseTest {
+class SearchUseCaseTest {
 
     private val dataRepository: DataRepository = mock()
     private lateinit var useCase: SearchRepositoryUseCase
@@ -29,7 +29,7 @@ class SearchRepositoryUseCaseTest {
 
     @Test
     fun `Successful search request`() {
-        givenSuccessResponse<DataSourceResponse<SearchResponseDto>>(stubSearchRequest, provideSampleResponse())
+        givenSuccessResponse(stubSearchRequest, provideSampleDataSourceResponse())
         useCase.fetchResults("kotlin", 0)
                 .test()
                 .apply {
@@ -39,7 +39,7 @@ class SearchRepositoryUseCaseTest {
     }
 
 
-    fun <T> givenSuccessResponse(ongoingStubbing: OngoingStubbing<Single<DataSourceResponse<SearchResponseDto>>>, response: DataSourceResponse.Success<SearchResponseDto>) =
+    fun givenSuccessResponse(ongoingStubbing: OngoingStubbing<Single<DataSourceResponse<SearchResponseDto>>>, response: DataSourceResponse.Success<SearchResponseDto>) =
             ongoingStubbing.thenReturn(Single.just(response))
 
 }
