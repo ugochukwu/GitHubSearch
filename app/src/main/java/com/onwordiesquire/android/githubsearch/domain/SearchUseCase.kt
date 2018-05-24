@@ -1,5 +1,6 @@
 package com.onwordiesquire.android.githubsearch.domain
 
+import com.onwordiesquire.android.githubsearch.data.datasource.DataSourceResponse
 import com.onwordiesquire.android.githubsearch.data.dto.ItemDto
 import com.onwordiesquire.android.githubsearch.data.dto.OwnerDto
 import com.onwordiesquire.android.githubsearch.data.dto.SearchResponseDto
@@ -7,14 +8,15 @@ import com.onwordiesquire.android.githubsearch.data.repository.DataRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SearchForRepositoryUseCase @Inject constructor(private val dataRepository: DataRepository) {
+class SearchRepositoryUseCase @Inject constructor(private val dataRepository: DataRepository) {
 
     fun fetchResults(searchTerm: String, pageNo: Int): Single<UseCaseResponse> {
         return dataRepository.searchForRepository(searchTerm = searchTerm, pageNo = pageNo)
                 .flatMap { response ->
-                    when {
-                        response.isSuccessful -> mapDtoToUseCaseResponse(response.body())
-                        else -> UseCaseResponse(ResultState.Failure())
+                    when (response) {
+                        is DataSourceResponse.Success -> mapDtoToUseCaseResponse(response.payload)
+                        is DataSourceResponse.Failure -> UseCaseResponse(ResultState.Failure())
+                        is DataSourceResponse.NoInternet -> UseCaseResponse(ResultState.Failure())
                     }.run { Single.just(this) }
                 }
     }

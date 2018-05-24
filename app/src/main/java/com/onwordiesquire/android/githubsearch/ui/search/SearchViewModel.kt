@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.onwordiesquire.android.githubsearch.domain.RepoPage
 import com.onwordiesquire.android.githubsearch.domain.RepositoryList
 import com.onwordiesquire.android.githubsearch.domain.ResultState
-import com.onwordiesquire.android.githubsearch.domain.SearchForRepositoryUseCase
+import com.onwordiesquire.android.githubsearch.domain.SearchRepositoryUseCase
 import com.onwordiesquire.android.githubsearch.domain.UseCaseResponse
 import com.onwordiesquire.android.githubsearch.ui.base.ModelState
 import com.onwordiesquire.android.githubsearch.ui.base.UiModel
@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(private val searchForRepositoryUseCase: SearchForRepositoryUseCase)
+class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: SearchRepositoryUseCase)
     : ViewModel() {
 
     private lateinit var internalState: InternalViewModelState
@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(private val searchForRepositoryUseCase
 
     fun onSearchForRepository(searchTerm: String) {
         internalState = internalState.copy(searchTerm = searchTerm)
-        compositeDisposable.add(searchForRepositoryUseCase.fetchResults(searchTerm, internalState.pageNo)
+        compositeDisposable.add(searchRepositoryUseCase.fetchResults(searchTerm, internalState.pageNo)
                 .toFlowable()
                 .map({ mapResultToUiState(it) })
                 .onErrorReturnItem(UiModel(state = ModelState.Error()))
@@ -46,7 +46,7 @@ class SearchViewModel @Inject constructor(private val searchForRepositoryUseCase
 
     fun onLoadMore() {
         internalState = internalState.copy(pageNo = internalState.pageNo.inc())
-        searchForRepositoryUseCase
+        searchRepositoryUseCase
     }
 
     override fun onCleared() {

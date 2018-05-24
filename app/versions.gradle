@@ -8,8 +8,10 @@ ext {
         daggerVersion         : "2.15",
         okhttp                : "3.10.0",
         rxAndroid             : "2.0.2",
-        architectureComponents: "1.1.0"
-
+        architectureComponents: "1.1.0",
+        junit                 : "4.12",
+        mockito               : "2.10.0",
+        mockitoKotlin         : "1.5.0"
     ]
     libs = [
         support_annotations    : "com.android.support:support-annotations:${versions.supportLib}",
@@ -29,6 +31,10 @@ ext {
         okhttp                 : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
         okhttp_logging         : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
         rxandroid              : "io.reactivex.rxjava2:rxandroid:${versions.rxAndroid}",
-        architectureComponents : "android.arch.lifecycle:extensions:${versions.architectureComponents}"
+        architectureComponents : "android.arch.lifecycle:extensions:${versions.architectureComponents}",
+        junit                  : "junit:junit:${versions.junit}",
+        mockito_core           : "org.mockito:mockito-core:${versions.mockito}",
+        mockito_kotlin         : "com.nhaarman:mockito-kotlin:${versions.mockitoKotlin}",
+        kotlin_reflect         : "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin_version}"
     ]
 }

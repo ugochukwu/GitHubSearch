@@ -22,5 +22,13 @@ class RemoteDataSource @Inject constructor(private val githubApi: GithubApi) {
             : Single<Response<SearchResponseDto>> = githubApi.searchForRespositories(searchTerm, pageNo, pageSize)
 }
 
+sealed class DataSourceResponse<T> {
+    class NoInternet<T> : DataSourceResponse<T>()
+    data class Success<T>(val payload: T?, val headers: ResponseHeaders) : DataSourceResponse<T>()
+    data class Failure<T>(val code: Int) : DataSourceResponse<T>()
+}
+
+typealias ResponseHeaders = MutableMap<String, MutableList<String>>
+
 const val BASE_URL = "https://api.github.com/"
 const val PAGE_SIZE = 10
