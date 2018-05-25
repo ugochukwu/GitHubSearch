@@ -4,31 +4,39 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.onwordiesquire.android.githubsearch.domain.RepoPage
-import com.onwordiesquire.android.githubsearch.domain.RepositoryList
 import com.onwordiesquire.android.githubsearch.domain.ResultState
 import com.onwordiesquire.android.githubsearch.domain.SearchRepositoryUseCase
 import com.onwordiesquire.android.githubsearch.domain.UseCaseResponse
 import com.onwordiesquire.android.githubsearch.ui.base.ModelState
 import com.onwordiesquire.android.githubsearch.ui.base.UiModel
+import com.onwordiesquire.android.githubsearch.utils.MyLogger
+import com.onwordiesquire.android.githubsearch.utils.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: SearchRepositoryUseCase)
-    : ViewModel() {
+    : ViewModel(), MyLogger {
 
-    private var internalState: InternalViewModelState
+    private var internalState: InternalViewModelState = InternalViewModelState()
     private val uiModelLiveData: MutableLiveData<UiModel> = MutableLiveData()
+    private val uiRestorationLiveData: SingleLiveEvent<RestorationModel> = SingleLiveEvent()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
         get() = if (field.isDisposed) CompositeDisposable() else field
 
     fun subscribeToUiEvents(): LiveData<UiModel> = uiModelLiveData
 
-    init {
-        internalState = InternalViewModelState()
-    }
+    fun start() {
+        logE("calling start()")
 
+        with(internalState) {
+            if (!isDefault) {
+                logE("restoring internal state $this")
+                uiRestorationLiveData.value = RestorationModel(cachedRepo, searchTerm)
+            }
+        }
+    }
 
     fun onSearchForRepository(searchTerm: String) {
         internalState = internalState.copy(searchTerm = searchTerm)
@@ -58,17 +66,24 @@ class SearchViewModel @Inject constructor(private val searchRepositoryUseCase: S
         return with(useCaseResponse) {
             when (result) {
                 is ResultState.Success<*> -> UiModel(state = ModelState.Success(result.payload as RepoPage))
-                        .also { internalState = internalState.copy(cachedList = result.payload.repositoryList) }
+                        .also { internalState = internalState.copy(cachedRepo = result.payload) }
                 is ResultState.Failure -> UiModel(state = ModelState.Error(ERROR_MSG))
                 is ResultState.Empty -> UiModel(state = ModelState.Empty(EMPTY_MSG))
             }
         }
     }
 
-    private data class InternalViewModelState(val pageNo: Int = 0,
-                                              val searchTerm: String = "",
-                                              val cachedList: RepositoryList = emptyList())
+    fun subscribeToUiRestorationEvent() = uiRestorationLiveData
+
+    data class InternalViewModelState(val pageNo: Int = 0,
+                                      val searchTerm: String = "",
+                                      val cachedRepo: RepoPage? = null)
+
+    private val InternalViewModelState.isDefault
+        get() = pageNo == 0 && searchTerm.isEmpty() && cachedRepo == null
 }
 
 const val ERROR_MSG = "Sorry something went wrong, please try again"
 const val EMPTY_MSG = "Sorry we couldn't find anything"
+
+data class RestorationModel(val cachedRepo: RepoPage?, val searchTerm: String)

@@ -1,10 +1,10 @@
 package com.onwordiesquire.android.githubsearch.domain
 
 
-data class RepoPage(val totalCount: Int = -1,
+data class RepoPage(val totalCount: Int = 0,
                     val incompleteResult: Boolean = false,
                     val repositoryList: RepositoryList = emptyList()) : DomainModel {
-    override fun isDefault(): Boolean = totalCount == -1 && !incompleteResult && repositoryList.isEmpty()
+    override fun isDefault(): Boolean = totalCount == 0 && !incompleteResult && repositoryList.isEmpty()
 }
 
 data class Repo(val id: Int = -1,

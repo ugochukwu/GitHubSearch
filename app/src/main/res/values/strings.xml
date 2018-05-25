@@ -3,4 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test_data">Bacon ipsum dolor amet pig sausage bresaola salami prosciutto cow swine pancetta. Pork chop cow capicola ball tip doner. Filet mignon meatloaf pork, pancetta tongue flank venison. Pastrami drumstick prosciutto chuck, boudin doner ground round jowl frankfurter corned beef pork shank shoulder meatloaf.</string>
+    <string name="hint_text">Please enter a search value</string>
+    <string name="input_text_hint">Search Term</string>
+    <string name="searchBtnLabel">Search</string>
 </resources>

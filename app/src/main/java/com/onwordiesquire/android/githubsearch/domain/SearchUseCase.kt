@@ -34,7 +34,7 @@ class SearchRepositoryUseCase @Inject constructor(private val dataRepository: Da
     }
 
     private fun determineResultState(repoPage: RepoPage) =
-            if (repoPage.isDefault()) ResultState.Failure() else ResultState.Success(repoPage)
+            if (repoPage.isDefault()) ResultState.Empty() else ResultState.Success(repoPage)
 
     private fun mapRepositoryList(items: List<ItemDto>?): RepositoryList {
         return items?.map { dto ->
@@ -50,7 +50,7 @@ class SearchRepositoryUseCase @Inject constructor(private val dataRepository: Da
                         subscribersUrl = subscribersUrl.orDefault(),
                         forksCount = forksCount.orDefault())
             }
-        } ?: listOf()
+        } ?: emptyList()
     }
 
     private fun mapOwner(owner: OwnerDto?): RepoOwner = owner?.let {

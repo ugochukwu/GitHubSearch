@@ -31,4 +31,4 @@ sealed class DataSourceResponse<T> {
 typealias ResponseHeaders = MutableMap<String, MutableList<String>>
 
 const val BASE_URL = "https://api.github.com/"
-const val PAGE_SIZE = 10
+const val PAGE_SIZE = 50
