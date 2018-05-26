@@ -29,7 +29,7 @@ class SearchFragment : BaseFragment(), MyLogger {
     @Inject
     lateinit var viewModelFactoryProvider: ViewModelProvider.Factory
 
-    private lateinit var  viewModel: SearchViewModel
+    private lateinit var viewModel: SearchViewModel
 
     private val repoListAdapter: RepoListAdapter by lazy { RepoListAdapter() }
 
@@ -84,7 +84,7 @@ class SearchFragment : BaseFragment(), MyLogger {
         val constraintSet = ConstraintSet()
         constraintSet.clone(searchViewConstraint)
         constraintSet.setVisibility(progressBar.id, View.GONE)
-        constraintSet.connect(recyclerView.id, ConstraintSet.TOP, searchBtn.id, ConstraintSet.BOTTOM)
+        constraintSet.setVerticalBias(textInputLayout.id, 0.0F)
         constraintSet.setVisibility(recyclerView.id, View.VISIBLE)
         constraintSet.applyTo(searchViewConstraint)
         TransitionManager.beginDelayedTransition(searchViewConstraint)
