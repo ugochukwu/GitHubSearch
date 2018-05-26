@@ -17,9 +17,11 @@ fun AppCompatActivity.replaceFragment(fragment: Fragment,
     }
 }
 
-fun FragmentActivity.hideSoftKeyboard() {
-    this.apply {
-        val inputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+fun FragmentActivity?.hideSoftKeyboard() {
+    this?.let {
+        val inputMethodManager = it.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        it.currentFocus?.let {
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 }

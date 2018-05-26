@@ -29,13 +29,18 @@ class SearchFragment : BaseFragment(), MyLogger {
     @Inject
     lateinit var viewModelFactoryProvider: ViewModelProvider.Factory
 
-    private val viewModel: SearchViewModel by lazy { injectViewModel() }
+    private lateinit var  viewModel: SearchViewModel
 
     private val repoListAdapter: RepoListAdapter by lazy { RepoListAdapter() }
 
     companion object {
         @JvmStatic
         fun newInstance() = SearchFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = injectViewModel()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +53,6 @@ class SearchFragment : BaseFragment(), MyLogger {
         setupSearchView()
         setupList()
         observeUiModelState()
-        viewModel.start()
     }
 
     override fun injectViewModel(): SearchViewModel = ViewModelProviders.of(this, viewModelFactoryProvider)
@@ -66,27 +70,6 @@ class SearchFragment : BaseFragment(), MyLogger {
                         is ModelState.Error -> renderFeedbackState(state.message, R.drawable.ic_error_state)
                         is ModelState.PaginationSuccess -> TODO("Currently not supported")
                         is ModelState.PaginationError -> TODO("Currently not supported")
-                    }
-                }
-            }
-        })
-
-        viewModel.subscribeToUiRestorationEvent().observe(this, Observer { restorationModel ->
-            restorationModel?.let {
-                with(it) {
-                    logE("Initiating restoration with $this")
-                    when {
-                        cachedRepo?.isDefault() ?: false -> {
-                            searchInput.setText(searchTerm)
-                            val constraintSet = ConstraintSet()
-                            constraintSet.clone(searchViewConstraint)
-                            constraintSet.setVerticalBias(textInputLayout.id, 0.0F)
-                            repoListAdapter.submitList((cachedRepo?.repositoryList))
-                            constraintSet.connect(recyclerView.id, ConstraintSet.TOP, searchBtn.id, ConstraintSet.BOTTOM)
-                            constraintSet.setVisibility(recyclerView.id, View.VISIBLE)
-                            constraintSet.applyTo(searchViewConstraint)
-                            TransitionManager.beginDelayedTransition(searchViewConstraint)
-                        }
                     }
                 }
             }

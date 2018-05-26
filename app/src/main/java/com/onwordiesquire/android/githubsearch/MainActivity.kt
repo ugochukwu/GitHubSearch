@@ -10,7 +10,9 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        displaySearchFragment()
+        if (savedInstanceState == null) {
+            displaySearchFragment()
+        }
     }
 
     override fun getLayout(): Int = R.layout.activity_main
