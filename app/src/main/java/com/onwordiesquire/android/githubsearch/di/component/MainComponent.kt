@@ -4,6 +4,7 @@ import com.onwordiesquire.android.githubsearch.GithubSearchApp
 import com.onwordiesquire.android.githubsearch.di.modules.BuildersModule
 import com.onwordiesquire.android.githubsearch.di.modules.GitHubApiModule
 import com.onwordiesquire.android.githubsearch.di.modules.NetworkModule
+import com.onwordiesquire.android.githubsearch.di.modules.RepositoryModule
 import com.onwordiesquire.android.githubsearch.di.modules.ViewModelFactoryModule
 import com.onwordiesquire.android.githubsearch.di.modules.ViewModelModule
 import dagger.BindsInstance
@@ -17,6 +18,7 @@ import javax.inject.Singleton
     ViewModelFactoryModule::class,
     BuildersModule::class,
     ViewModelModule::class,
+    RepositoryModule::class,
     AndroidSupportInjectionModule::class])
 interface MainComponent {
     fun inject(githubSearchApp: GithubSearchApp)

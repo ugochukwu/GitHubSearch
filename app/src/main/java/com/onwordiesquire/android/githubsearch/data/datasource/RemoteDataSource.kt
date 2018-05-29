@@ -5,7 +5,6 @@ import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import javax.inject.Inject
 
 interface GithubApi {
 
@@ -14,12 +13,6 @@ interface GithubApi {
                                @Query("page") page: Int,
                                @Query("per_page") pageSize: Int)
             : Single<Response<SearchResponseDto>>
-}
-
-class RemoteDataSource @Inject constructor(private val githubApi: GithubApi) {
-
-    fun searchForRepositories(searchTerm: String, pageNo: Int = 0, pageSize: Int)
-            : Single<Response<SearchResponseDto>> = githubApi.searchForRespositories(searchTerm, pageNo, pageSize)
 }
 
 sealed class DataSourceResponse<T> {
