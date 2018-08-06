@@ -1,7 +1,7 @@
 package com.onwordiesquire.android.githubsearch.data.datasource
 
 import com.onwordiesquire.android.githubsearch.data.dto.SearchResponseDto
-import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,7 +12,7 @@ interface GithubApi {
     fun searchForRespositories(@Query("q") searchTerm: String,
                                @Query("page") page: Int,
                                @Query("per_page") pageSize: Int)
-            : Single<Response<SearchResponseDto>>
+            : Deferred<Response<SearchResponseDto>>
 }
 
 sealed class DataSourceResponse<T> {

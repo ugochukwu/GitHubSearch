@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import com.onwordiesquire.android.githubsearch.R
 import com.onwordiesquire.android.githubsearch.domain.RepoPage
 import com.onwordiesquire.android.githubsearch.ui.base.BaseFragment
-import com.onwordiesquire.android.githubsearch.ui.base.ModelState
+import com.onwordiesquire.android.githubsearch.ui.base.State
 import com.onwordiesquire.android.githubsearch.utils.MyLogger
 import com.onwordiesquire.android.githubsearch.utils.disable
 import com.onwordiesquire.android.githubsearch.utils.enable
@@ -64,19 +64,19 @@ class SearchFragment : BaseFragment(), MyLogger {
                 with(it) {
                     logE("state is $state")
                     when (state) {
-                        is ModelState.Loading -> renderLoadingState()
-                        is ModelState.Success<*> -> renderSuccessState(state)
-                        is ModelState.Empty -> renderFeedbackState(state.message, R.drawable.ic_empty_state)
-                        is ModelState.Error -> renderFeedbackState(state.message, R.drawable.ic_error_state)
-                        is ModelState.PaginationSuccess -> TODO("Currently not supported")
-                        is ModelState.PaginationError -> TODO("Currently not supported")
+                        is State.Loading -> renderLoadingState()
+                        is State.Success<*> -> renderSuccessState(state)
+                        is State.Empty -> renderFeedbackState(state.message, R.drawable.ic_empty_state)
+                        is State.Error -> renderFeedbackState(state.message, R.drawable.ic_error_state)
+                        is State.PaginationSuccess -> TODO("Currently not supported")
+                        is State.PaginationError -> TODO("Currently not supported")
                     }
                 }
             }
         })
     }
 
-    private fun renderSuccessState(state: ModelState.Success<*>) {
+    private fun renderSuccessState(state: State.Success<*>) {
         repoListAdapter.submitList((state.data as RepoPage).repositoryList)
         activity?.hideSoftKeyboard()
         searchBtn.enable()

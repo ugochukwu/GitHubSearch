@@ -44,6 +44,9 @@ dependencies {
     implementation libs.okhttp
     implementation libs.okhttp_logging
 
+    implementation libs.retrofit_coroutines_adapter
+    implementation libs.coroutines_android_extensions
+
     implementation libs.rxjava
     implementation libs.rxandroid
 

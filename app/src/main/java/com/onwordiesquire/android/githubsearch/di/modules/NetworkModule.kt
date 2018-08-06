@@ -1,6 +1,7 @@
 package com.onwordiesquire.android.githubsearch.di.modules
 
 import com.google.gson.Gson
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.onwordiesquire.android.githubsearch.BuildConfig
 import com.onwordiesquire.android.githubsearch.data.datasource.BASE_URL
 import dagger.Module
@@ -18,11 +19,11 @@ class NetworkModule {
     @Provides
     fun provideRetrofit(
             okHttpClient: OkHttpClient,
-            rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
+            coroutineCallAdapterFactory: CoroutineCallAdapterFactory,
             gsonConverterFactory: GsonConverterFactory
     ): Retrofit = Retrofit.Builder()
             .client(okHttpClient)
-            .addCallAdapterFactory(rxJava2CallAdapterFactory)
+            .addCallAdapterFactory(coroutineCallAdapterFactory)
             .addConverterFactory(gsonConverterFactory)
             .baseUrl(BASE_URL)
             .build()
@@ -54,6 +55,10 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideGson(): Gson = Gson()
+
+    @Provides
+    @Singleton
+    fun provideCoroutinesAdapterFactory():CoroutineCallAdapterFactory = CoroutineCallAdapterFactory()
 
 }
 

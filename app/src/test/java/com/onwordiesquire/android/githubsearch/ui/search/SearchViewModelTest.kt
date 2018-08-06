@@ -9,7 +9,7 @@ import com.nhaarman.mockito_kotlin.whenever
 import com.onwordiesquire.android.githubsearch.domain.SearchRepositoryUseCase
 import com.onwordiesquire.android.githubsearch.domain.UseCaseResponse
 import com.onwordiesquire.android.githubsearch.ui.base.ModelState
-import com.onwordiesquire.android.githubsearch.ui.base.UiModel
+import com.onwordiesquire.android.githubsearch.ui.base.UiState
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -33,7 +33,7 @@ class SearchViewModelTest {
 
     private val searchRepositoryUseCase: SearchRepositoryUseCase = mock()
     private lateinit var viewModel: SearchViewModel
-    private val stubUseCaseRequest = whenever(searchRepositoryUseCase.fetchResults(any(), any()))
+    private val stubUseCaseRequest = whenever(searchRepositoryUseCase.searchForRepositories(any(), any()))
 
     @Before
     fun setup() {
@@ -52,7 +52,7 @@ class SearchViewModelTest {
         assertObservedStates(testObserver, ModelState.Loading::class, ModelState.Success::class)
     }
 
-    private fun assertObservedStates(testObserver: TestLiveDataWrapper<UiModel>, loadingState: KClass<ModelState.Loading>, SuccessState: KClass<ModelState.Success<*>>) {
+    private fun assertObservedStates(testObserver: TestLiveDataWrapper<UiState>, loadingState: KClass<ModelState.Loading>, SuccessState: KClass<ModelState.Success<*>>) {
         testObserver.observedValues.map { it?.state }.forEachIndexed { index, state ->
             Truth.assert_().that(state).isInstanceOf(when (index) {
                 0 -> loadingState.java

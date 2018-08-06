@@ -30,7 +30,7 @@ class SearchUseCaseTest {
     @Test
     fun `Successful search request`() {
         givenSuccessResponse(stubSearchRequest, provideSampleDataSourceResponse())
-        useCase.fetchResults("kotlin", 0)
+        useCase.searchForRepositories("kotlin", 0)
                 .test()
                 .apply {
                     assertNoErrors()
